@@ -201,10 +201,9 @@ def onnxRuntime():
         Image.fromarray(ori_images[0])
         ori_images[0] = cv2.cvtColor(ori_images[0], cv2.COLOR_BGR2RGB)
 
-        # 현재 이미지의 상위 폴더에 _ai 폴더 생성
         parent_dir = os.path.dirname(idx)  # 상위 폴더 경로
-        output_folder = parent_dir + "_result"  # _ai 폴더 경로
-        createOSDir(output_folder)  # _ai 폴더가 없으면 생성
+        output_folder = parent_dir + "_result"
+        createOSDir(output_folder)
 
         # 이미지 저장
         cv2.imwrite(os.path.join(output_folder, os.path.basename(idx)), ori_images[0])
