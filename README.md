@@ -26,4 +26,4 @@ python seg_inf.py --input "input_image_path" --weights yolov7-seg.onnx" --size 6
 python seg_inf.py -i "input_image_path" -w "yolov7-seg.onnx" -s 640 -dt "data.yaml" -dv 0
 ```
 
-추가 작성 중
+추가 작성 예정
