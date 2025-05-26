@@ -116,7 +116,7 @@ def onnxRuntime():
 
     cuda = True
 
-    # 경로가 없다면 생성
+    # make folder path
     createOSDir(path)
         
     print("Inference Model : ", w)
@@ -126,11 +126,10 @@ def onnxRuntime():
     print("Onnxruntime Session Providers", session.get_providers())
     print("Selected Graphic Card: ", ort.get_device())
 
-    # 폴더 탐색을 위한 이미지 파일 리스트 생성
     img_files = []
     for root, dirs, files in os.walk(path):
         for file in files:
-            if file.endswith(('.png', '.jpg', '.jpeg')):  # 이미지 확장자 추가
+            if file.endswith(('.png', '.jpg', '.jpeg')):  # filter file extension
                 img_files.append(os.path.join(root, file))
 
     names = ['Rectangle_Lead', 'Polygonal)Lead', 'TR_Lead (Big)', 'TR_Lead (Small)']
@@ -160,7 +159,6 @@ def onnxRuntime():
         outputs = session.run(outname, inp)[0]
         inference_end = time.time()
 
-        MYTIME += inference_end - inference_start
 
         if len(outputs) == 0:
             missing_count += 1
@@ -201,11 +199,11 @@ def onnxRuntime():
         Image.fromarray(ori_images[0])
         ori_images[0] = cv2.cvtColor(ori_images[0], cv2.COLOR_BGR2RGB)
 
-        parent_dir = os.path.dirname(idx)  # 상위 폴더 경로
+        parent_dir = os.path.dirname(idx)
         output_folder = parent_dir + "_result"
         createOSDir(output_folder)
 
-        # 이미지 저장
+        # save image
         cv2.imwrite(os.path.join(output_folder, os.path.basename(idx)), ori_images[0])
 
     
@@ -215,9 +213,6 @@ def onnxRuntime():
     print("Missing Count : {}".format(missing_count))
     print("Total Inference Time : {} seconds".format(round(process_time, 3)))
     print("Complete!\n")
-    # print("Saved As {}".format(output_path))
-
-    print("MYTIME", MYTIME)
 
 
 def createOSDir(dir):
